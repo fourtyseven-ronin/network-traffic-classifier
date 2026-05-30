@@ -1,0 +1,65 @@
+project:
+  marker_files: [".git", "pyproject.toml", "README.md"]
+  random_state: 228
+
+data:
+  rel_path: "data/processed/stage1_cleaned.parquet"
+  test_size: 0.3
+  ratio_val_test: 0.5
+
+outputs:
+  rel_path: "reports"
+  log_file: "pipeline.log"
+
+mappings:
+  label1_map:
+    'BENIGN': 'BENIGN'
+    'Bot': 'Web_Bot'
+    'Web Attack - Brute Force': 'Web_Bot'
+    'Web Attack - XSS': 'Web_Bot'
+    'Web Attack - Sql Injection': 'Web_Bot'
+
+  label_stage2:
+    - 'DoS Hulk'
+    - 'DDoS'
+    - 'PortScan'
+    - 'DoS GoldenEye'
+    - 'FTP-Patator'
+    - 'DoS slowloris'
+    - 'DoS Slowhttptest'
+    - 'SSH-Patator'
+    - 'Infiltration'
+    - 'Heartbleed'
+
+preprocessing:
+  stage1_clip_weight: 50.0
+  stage2_clip_weight: 1000.0
+
+models:
+  xgb_stage1:
+    objective: "multi:softprob"
+    num_class: 3
+    eval_metric: "mlogloss"
+    n_estimators: 2400
+    max_depth: 8
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 3
+    gamma: 0.5
+    early_stopping_rounds: 100
+
+  xgb_stage2:
+    objective: "multi:softprob"
+    eval_metric: "mlogloss"
+    n_estimators: 1200
+    max_depth: 6
+    learning_rate: 0.1
+    subsample: 0.7
+    colsample_bytree: 0.8
+    colsample_bylevel: 0.8
+    min_child_weight: 10
+    gamma: 0.5
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    early_stopping_rounds: 100
