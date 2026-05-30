@@ -67,8 +67,8 @@ class TrafficPredictor:
         # Шаг 1: Предобработка
         X = self.preprocess_inference_data(raw_df)
         
-        # Создаем массив под финальные ответы (изначально заполняем пустой строкой)
-        final_predictions = np. those = np.empty(len(raw_df), dtype=object)
+        # созд. массив под финальные ответы (изначально заполняем пустой строкой)
+        final_predictions = np.those = np.empty(len(raw_df), dtype=object)
         
         # Переводим данные в формат DMatrix для XGBoost
         dmatrix_all = xgb.DMatrix(X)
@@ -79,11 +79,10 @@ class TrafficPredictor:
         stage1_preds = np.argmax(stage1_probs, axis=1) # Получаем ID классов (0, 1, 2)
         
         # Мапинг Stage 1 (0: BENIGN, 1: Other_Attack, 2: Web_Bot)
-        # ВАЖНО: Проверь порядок классов в своем train.py, он должен совпадать с маппингом!
         stage1_mapping = {0: "BENIGN", 1: "Other_Attack", 2: "Web_Bot"}
         stage1_labels = np.vectorize(stage1_mapping.get)(stage1_preds)
         
-        # Записываем в финальные ответы BENIGN и Web_Bot
+        # Запись в финальные ответы BENIGN и Web_Bot
         final_predictions[stage1_labels == "BENIGN"] = "BENIGN"
         final_predictions[stage1_labels == "Web_Bot"] = "Web_Bot"
         
@@ -94,11 +93,11 @@ class TrafficPredictor:
         if count_stage2 > 0:
             logger.info(f"Stage 1 выявил подозрительный трафик. Отправка {count_stage2} строк на Stage 2...")
             
-            # Берем только те строки, которые отфильтровал Stage 1
+            # Строки, отфильтрованные Stage 2
             X_stage2 = X[stage2_mask]
             dmatrix_stage2 = xgb.DMatrix(X_stage2)
             
-            # Предсказание Stage 2 (Мультиклассификация конкретных атак)
+            # Предсказание Stage 2
             stage2_probs = self.stage2_model.predict(dmatrix_stage2)
             stage2_preds_encoded = np.argmax(stage2_probs, axis=1)
             
@@ -110,7 +109,7 @@ class TrafficPredictor:
         else:
             logger.info("Подозрительный трафик не обнаружен. Stage 2 пропущен.")
             
-        # Собираем красивый итоговый DataFrame
+        # Итоговый датафрейм
         result_df = pd.DataFrame({
             "Stage1_Decision": stage1_labels,
             "Final_Prediction": final_predictions
@@ -143,7 +142,7 @@ def main():
     models_dir = base_dir / config["outputs"]["rel_path"]
     
     # Имулируем появление новых данных (для теста можно подсунуть сырой кусок из data/raw)
-    # Замени "test_traffic.csv" на имя реального файла, который хочешь протестировать
+    # Замените "test_traffic.csv" на имя реального файла, который хочешь протестировать
     new_data_path = base_dir / "data" / "raw" / "test_traffic.csv" 
     
     if not new_data_path.exists():

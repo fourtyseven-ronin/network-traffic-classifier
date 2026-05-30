@@ -5,13 +5,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-# Инициализируем логгер для текущего модуля
+
 logger = logging.getLogger(__name__)
 
 
 class DataCleaner:
     ID_COLS = ["Flow ID", "Src IP", "Dst IP", "Timestamp"]
-    # Метрики, которые физически не могут быть отрицательными
     NON_NEGATIVE_METRICS = ["Flow Bytes/s", "Flow Duration"]
 
     def __init__(self, raw_data_dir: str | Path, drop_cols: list = None):
@@ -163,7 +162,7 @@ def main():
         handlers=[logging.FileHandler(log_file, encoding="utf-8"), logging.StreamHandler()],
     )
 
-    logger.info("=== Запуск этапа очистки данных (Data Cleaning Stage) ===")
+    logger.info("Запуск этапа очистки данных (Data Cleaning Stage)")
 
     raw_dir = base_dir / "data" / "raw"
     output_file = base_dir / config["data"]["rel_path"]
@@ -171,7 +170,7 @@ def main():
     cleaner = DataCleaner(raw_data_dir=raw_dir)
     cleaner.run_stage_one(output_path=output_file)
 
-    logger.info("=== Очистка данных успешно завершена! ===")
+    logger.info("Очистка данных успешно завершена!")
 
 
 if __name__ == "__main__":
