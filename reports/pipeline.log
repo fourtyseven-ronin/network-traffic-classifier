@@ -1,13 +1,13 @@
-2026-05-30 22:18:10,256 [INFO] Starting Pipeline...
-2026-05-30 22:18:10,257 [INFO] Loading dataset...
-2026-05-30 22:18:11,090 [INFO] Dataset shape: (2522362, 79)
-2026-05-30 22:18:11,090 [INFO] Splitting data into Train, Validation, and Test sets...
-2026-05-30 22:18:16,727 [INFO] Training Stage 1 Model...
-2026-05-30 22:24:42,019 [INFO] === STAGE1 RESULTS ===
-2026-05-30 22:24:42,019 [INFO] Accuracy:    0.9991
-2026-05-30 22:24:42,019 [INFO] Macro F1:    0.9678
-2026-05-30 22:24:42,019 [INFO] Weighted F1: 0.9991
-2026-05-30 22:24:42,133 [INFO] 
+2026-06-05 15:30:41,034 [INFO] Starting Pipeline...
+2026-06-05 15:30:41,035 [INFO] Loading dataset...
+2026-06-05 15:30:45,027 [INFO] Dataset shape: (2522362, 79)
+2026-06-05 15:30:45,028 [INFO] Splitting data into Train, Validation, and Test sets...
+2026-06-05 15:30:50,379 [INFO] Training Stage 1 Model...
+2026-06-05 15:33:35,067 [INFO] === STAGE1 RESULTS ===
+2026-06-05 15:33:35,067 [INFO] Accuracy:    0.9991
+2026-06-05 15:33:35,067 [INFO] Macro F1:    0.9678
+2026-06-05 15:33:35,068 [INFO] Weighted F1: 0.9991
+2026-06-05 15:33:35,137 [INFO] 
 Classification Report:
               precision    recall  f1-score   support
 
@@ -19,13 +19,13 @@ Other_Attack     0.9969    0.9997    0.9983     63267
    macro avg     0.9453    0.9942    0.9678    378354
 weighted avg     0.9991    0.9991    0.9991    378354
 
-2026-05-30 22:24:42,139 [INFO] Metrics saved: C:\Users\lifie\CICIDS2017-XGB-H\reports\stage1_metrics.csv
-2026-05-30 22:24:43,179 [INFO] Training Stage 2 Model...
-2026-05-30 22:27:42,879 [INFO] === STAGE2 RESULTS ===
-2026-05-30 22:27:42,879 [INFO] Accuracy:    0.9996
-2026-05-30 22:27:42,879 [INFO] Macro F1:    0.9985
-2026-05-30 22:27:42,879 [INFO] Weighted F1: 0.9996
-2026-05-30 22:27:42,903 [INFO] 
+2026-06-05 15:33:35,142 [INFO] Metrics saved: C:\Users\lifie\CICIDS2017-XGB\reports\stage1_metrics.csv
+2026-06-05 15:33:36,215 [INFO] Training Stage 2 Model...
+2026-06-05 15:34:47,052 [INFO] === STAGE2 RESULTS ===
+2026-06-05 15:34:47,053 [INFO] Accuracy:    0.9996
+2026-06-05 15:34:47,053 [INFO] Macro F1:    0.9985
+2026-06-05 15:34:47,053 [INFO] Weighted F1: 0.9996
+2026-06-05 15:34:47,071 [INFO] 
 Classification Report:
                   precision    recall  f1-score   support
 
@@ -44,6 +44,6 @@ DoS Slowhttptest     0.9962    0.9923    0.9942       784
        macro avg     0.9983    0.9986    0.9985     63267
     weighted avg     0.9996    0.9996    0.9996     63267
 
-2026-05-30 22:27:42,905 [INFO] Metrics saved: C:\Users\lifie\CICIDS2017-XGB-H\reports\stage2_metrics.csv
-2026-05-30 22:27:43,947 [INFO] Saving models and encoders...
-2026-05-30 22:27:44,183 [INFO] Pipeline complete successfully!
+2026-06-05 15:34:47,072 [INFO] Metrics saved: C:\Users\lifie\CICIDS2017-XGB\reports\stage2_metrics.csv
+2026-06-05 15:34:47,564 [INFO] Saving models and encoders...
+2026-06-05 15:34:47,730 [INFO] Pipeline complete successfully!

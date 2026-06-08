@@ -10,6 +10,7 @@ data:
 outputs:
   rel_path: "reports"
   log_file: "pipeline.log"
+  pred_path: "prediction"
 
 mappings:
   label1_map:

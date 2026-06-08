@@ -3,3 +3,5 @@
 .venv/
 data/
 __pycache__/
+test.py
+predict_new.py

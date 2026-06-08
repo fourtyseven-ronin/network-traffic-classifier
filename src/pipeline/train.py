@@ -120,7 +120,7 @@ def evaluate_and_save(model, X_test, y_test, le, feature_cols, stage_name, outpu
     return metrics_df
 
 
-# ==================== MAIN PIPELINE ====================
+
 def main():
     logger.info("Starting Pipeline...")
     
@@ -135,10 +135,13 @@ def main():
     df = pd.read_parquet(data_path)
     df['Stage1_Label'] = df['Label'].map(CONFIG["mappings"]["label1_map"]).fillna('Other_Attack')
     feature_cols = [c for c in df.columns if c not in {"Label", "Stage1_Label"}]
-
+    # ТОЛЬКО ДЛЯ ИНФЕРЕНСА В predict.py.
+    numeric_cols = df.select_dtypes(include="number").columns
+    medians = {col: df[col].median() for col in numeric_cols}
+    
     logger.info(f"Dataset shape: {df.shape}")
     
-    # ─── [2/5] TRAIN / VAL / TEST SPLIT (No Data Leakage) ──────────────────────
+    # ─── [2/5] TRAIN / VAL / TEST SPLIT ──────────────────────
     logger.info("Splitting data into Train, Validation, and Test sets...")
     
     df_train, df_temp = train_test_split(
@@ -232,6 +235,7 @@ def main():
     joblib.dump(le1, output_dir / 'stage1_label_encoder.pkl')
     joblib.dump(le2, output_dir / 'stage2_label_encoder.pkl')
     joblib.dump(feature_cols, output_dir / 'feature_columns.pkl')
+    joblib.dump(medians, output_dir / 'median_columns.pkl')
 
     logger.info("Pipeline complete successfully!")
 
